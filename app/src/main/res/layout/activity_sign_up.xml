@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Login">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:background="@color/blue_gray">
+
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+            android:hint="name"
+            android:textSize="14sp"
+            android:padding="16dp"
+            android:layout_gravity="center"
+            android:background="@drawable/bg_edit_text_login"/>
+
+        <EditText
+            android:id="@+id/username"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+            android:hint="Username"
+            android:layout_gravity="center"
+            android:textSize="14sp"
+            android:padding="16dp"
+            android:layout_marginTop="35dp"
+            android:background="@drawable/bg_edit_text_login"/>
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+            android:hint="Password"
+            android:textSize="14sp"
+            android:padding="16dp"
+            android:layout_marginTop="35dp"
+            android:layout_gravity="center"
+            android:background="@drawable/bg_edit_text_login"/>
+
+        <Button
+            android:id="@+id/signUp"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:onClick="onClickView"
+            android:background="@drawable/bg_edit_text_login"
+            android:text="SignUp"/>
+
+        <TextView
+            android:id="@+id/txt_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#B0BEC5"
+            android:text="Login"
+            android:onClick="onClickView"
+            android:textSize="14sp"
+            android:layout_marginTop="30dp"/>
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>
