@@ -68,7 +68,7 @@ public class Login extends AppCompatActivity {
                 else {
 
                     requestLogin();
-                    startActivity(new Intent(Login.this, ListUser.class));
+//                    startActivity(new Intent(Login.this, ListUser.class));
                 }
             }
         });
