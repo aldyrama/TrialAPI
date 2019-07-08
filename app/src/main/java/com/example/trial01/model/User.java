@@ -1,15 +1,20 @@
-package com.example.trial01;
+package com.example.trial01.model;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class User {
 
     @SerializedName("id")
+    @Expose
     private int id;
     @SerializedName("username")
+    @Expose
     private String username;
     @SerializedName("first_name")
+    @Expose
     private String first_name;
+    @Expose
     @SerializedName("img")
     private String img;
 

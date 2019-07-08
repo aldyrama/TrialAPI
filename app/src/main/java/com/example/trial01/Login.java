@@ -84,12 +84,12 @@ public class Login extends AppCompatActivity {
                             loading.dismiss();
                             try {
                                 JSONObject jsonRESULTS = new JSONObject(response.body().string());
-                                if (jsonRESULTS.getString("message").equals("Success")){
+                                if (jsonRESULTS.getJSONObject("meta").getString("message").equals("Success")){
                                     Toast.makeText(mContext, "BERHASIL LOGIN", Toast.LENGTH_SHORT).show();
-                                    String nama = jsonRESULTS.getJSONObject("profile_data").getString("first_name");
-                                    Log.d("nama", "onResponse" + nama);
+//                                    String nama = jsonRESULTS.getJSONObject("profile_data").getString("first_name");
+//                                    Log.d("nama", "onResponse" + nama);
                                     Intent intent = new Intent(mContext, ListUser.class);
-                                    intent.putExtra("result_nama", nama);
+//                                    intent.putExtra("result_nama", nama);
                                     startActivity(intent);
                                 } else {
                                     String error_message = jsonRESULTS.getString("error_msg");

@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.example.trial01.adapter.RecyclerViewUserAdapter;
 import com.example.trial01.apihelper.BaseApiService;
 import com.example.trial01.apihelper.UtilsApi;
+import com.example.trial01.model.User;
 
 import java.util.List;
 
@@ -44,7 +45,7 @@ public class ListUser extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        getUser();
+//        getUser();
 
     }
 

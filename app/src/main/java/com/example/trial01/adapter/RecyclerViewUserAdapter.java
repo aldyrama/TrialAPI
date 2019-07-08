@@ -8,9 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.trial01.ListUser;
 import com.example.trial01.R;
-import com.example.trial01.User;
+import com.example.trial01.model.User;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
