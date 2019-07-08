@@ -18,33 +18,46 @@
             android:id="@+id/name"
             android:layout_width="300dp"
             android:layout_height="45dp"
-            android:hint="name"
-            android:textSize="14sp"
-            android:padding="16dp"
             android:layout_gravity="center"
-            android:background="@drawable/bg_edit_text_login"/>
+            android:layout_marginTop="10dp"
+            android:lines="1"
+            android:inputType="text"
+            android:drawablePadding="8dp"
+            android:imeOptions="actionNext"
+            android:background="@drawable/bg_edit_text_login"
+            android:hint="Nama"
+            android:padding="15dp"
+            android:textSize="14sp"/>
 
         <EditText
             android:id="@+id/username"
             android:layout_width="300dp"
             android:layout_height="45dp"
-            android:hint="Username"
             android:layout_gravity="center"
-            android:textSize="14sp"
-            android:padding="16dp"
-            android:layout_marginTop="35dp"
-            android:background="@drawable/bg_edit_text_login"/>
+            android:layout_marginTop="10dp"
+            android:lines="1"
+            android:inputType="text"
+            android:drawablePadding="8dp"
+            android:imeOptions="actionNext"
+            android:background="@drawable/bg_edit_text_login"
+            android:hint="Username"
+            android:padding="15dp"
+            android:textSize="14sp"/>
 
         <EditText
             android:id="@+id/password"
             android:layout_width="300dp"
             android:layout_height="45dp"
-            android:hint="Password"
-            android:textSize="14sp"
-            android:padding="16dp"
-            android:layout_marginTop="35dp"
             android:layout_gravity="center"
-            android:background="@drawable/bg_edit_text_login"/>
+            android:layout_marginTop="10dp"
+            android:lines="1"
+            android:inputType="text"
+            android:drawablePadding="8dp"
+            android:imeOptions="actionDone"
+            android:background="@drawable/bg_edit_text_login"
+            android:hint="Password"
+            android:padding="15dp"
+            android:textSize="14sp"/>
 
         <Button
             android:id="@+id/signUp"

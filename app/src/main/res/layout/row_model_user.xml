@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
                 tools:text="id"
-                android:id="@+id/username"
+                android:id="@+id/id"
                 android:textColor="@color/blackk"
                 android:layout_gravity="center|left"/>
 
