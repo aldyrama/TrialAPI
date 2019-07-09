@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "750850990255",
+    "firebase_url": "https://smart-bd5f7.firebaseio.com",
+    "project_id": "smart-bd5f7",
+    "storage_bucket": "smart-bd5f7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:750850990255:android:f25c51bb6484b38a",
+        "android_client_info": {
+          "package_name": "com.example.trial01"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "750850990255-ovq7q4tcicp06nokdsrm9npldl6jkvf8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnkbzAO6tFx8D0DseTwr8yII6VCugNrjI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "750850990255-ovq7q4tcicp06nokdsrm9npldl6jkvf8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:750850990255:android:7d6feba0e90a668a",
+        "android_client_info": {
+          "package_name": "org.d3ifcool.smart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "750850990255-ovq7q4tcicp06nokdsrm9npldl6jkvf8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnkbzAO6tFx8D0DseTwr8yII6VCugNrjI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "750850990255-ovq7q4tcicp06nokdsrm9npldl6jkvf8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

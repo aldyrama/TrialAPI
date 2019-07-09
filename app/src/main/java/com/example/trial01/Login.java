@@ -14,6 +14,10 @@ import android.widget.Toast;
 
 import com.example.trial01.apihelper.BaseApiService;
 import com.example.trial01.apihelper.UtilsApi;
+import com.example.trial01.model.SharedPrefManager;
+import com.example.trial01.model.User;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,6 +33,8 @@ public class Login extends AppCompatActivity {
 
     private EditText mUsername, mPassword;
     private Button mLogin;
+    private DatabaseReference ref;
+    SharedPrefManager sharedPrefManager;
     Context mContext;
     BaseApiService mApiService;
     ProgressDialog loading;
@@ -37,7 +43,12 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        sharedPrefManager = new SharedPrefManager(this);
+        if (sharedPrefManager.getSPSudahLogin()){
+            startActivity(new Intent(Login.this, ListUser.class)
+                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
+            finish();
+        }
         mContext = this;
         mApiService = UtilsApi.getAPIService();
         Log.d("API", "onResponse" + mApiService);
@@ -75,6 +86,17 @@ public class Login extends AppCompatActivity {
 
     }
 
+    public void addUser(){
+        String username = mUsername.getText().toString();
+        String password = mPassword.getText().toString();
+        User user = new User(username, password);
+        ref = FirebaseDatabase.getInstance().getReference().child("Users");
+        String id = ref.push().getKey();
+        ref.child(id).setValue(user);
+        ref.child(id).child("id").setValue(id);
+
+    }
+
     private void requestLogin(){
         mApiService.loginRequest(mUsername.getText().toString(), mPassword.getText().toString())
                 .enqueue(new Callback<ResponseBody>() {
@@ -86,11 +108,12 @@ public class Login extends AppCompatActivity {
                                 JSONObject jsonRESULTS = new JSONObject(response.body().string());
                                 if (jsonRESULTS.getJSONObject("meta").getString("message").equals("Success")){
                                     Toast.makeText(mContext, "BERHASIL LOGIN", Toast.LENGTH_SHORT).show();
-//                                    String nama = jsonRESULTS.getJSONObject("profile_data").getString("first_name");
+                                    sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_SUDAH_LOGIN, true);
 //                                    Log.d("nama", "onResponse" + nama);
-                                    Intent intent = new Intent(mContext, ListUser.class);
-//                                    intent.putExtra("result_nama", nama);
-                                    startActivity(intent);
+                                    addUser();
+                                    startActivity(new Intent(mContext, ListUser.class)
+                                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
+                                    finish();
                                 } else {
                                     String error_message = jsonRESULTS.getString("error_msg");
                                     Toast.makeText(mContext, error_message, Toast.LENGTH_SHORT).show();
