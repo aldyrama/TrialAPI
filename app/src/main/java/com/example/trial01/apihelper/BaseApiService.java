@@ -25,4 +25,10 @@ public interface BaseApiService {
     Call<ResponseBody> profile(@Field("id") int id,
                                @Field("first_name") String nama);
 
+    @FormUrlEncoded
+    @GET("products")
+    Call<ResponseBody> products(@Field("id") int id,
+                                @Field("name") String name,
+                                @Field("image") String image);
+
 }

@@ -3,13 +3,13 @@ package com.example.trial01;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatButton;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.trial01.apihelper.BaseApiService;
@@ -29,10 +29,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Login extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
-    private EditText mUsername, mPassword;
-    private Button mLogin;
+    private TextInputEditText mUsername, mPassword;
+    private AppCompatButton mLogin;
     private DatabaseReference ref;
     SharedPrefManager sharedPrefManager;
     Context mContext;
@@ -45,7 +45,7 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         sharedPrefManager = new SharedPrefManager(this);
         if (sharedPrefManager.getSPSudahLogin()){
-            startActivity(new Intent(Login.this, ListUser.class)
+            startActivity(new Intent(LoginActivity.this, ListUserActivity.class)
                     .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
             finish();
         }
@@ -57,9 +57,9 @@ public class Login extends AppCompatActivity {
 
     public void component(){
 
-        mUsername = findViewById(R.id.username);
-        mPassword = findViewById(R.id.password);
-        mLogin = findViewById(R.id.login);
+        mUsername = findViewById(R.id.etx_username);
+        mPassword = findViewById(R.id.etx_password);
+        mLogin = findViewById(R.id.btn_login);
 
         mLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,7 +79,7 @@ public class Login extends AppCompatActivity {
                 else {
 
                     requestLogin();
-//                    startActivity(new Intent(Login.this, ListUser.class));
+
                 }
             }
         });
@@ -111,7 +111,7 @@ public class Login extends AppCompatActivity {
                                     sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_SUDAH_LOGIN, true);
 //                                    Log.d("nama", "onResponse" + nama);
                                     addUser();
-                                    startActivity(new Intent(mContext, ListUser.class)
+                                    startActivity(new Intent(mContext, ListUserActivity.class)
                                             .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
                                     finish();
                                 } else {
@@ -140,11 +140,8 @@ public class Login extends AppCompatActivity {
     public void onClickView(View view){
 
         switch (view.getId()){
-            case R.id.login :
-
-                break;
             case R.id.txt_signUp :
-                startActivity(new Intent(Login.this, SignUp.class));
+                startActivity(new Intent(LoginActivity.this, SignUpActivity.class));
                 break;
         }
     }

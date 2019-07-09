@@ -44,7 +44,7 @@
                 android:layout_height="55dp"
                 android:layout_gravity="center"
                 android:layout_marginLeft="6dp"
-                android:src="@drawable/ic_user" />
+                android:src="@drawable/ic_user_color" />
 
             <LinearLayout
                 android:layout_width="match_parent"

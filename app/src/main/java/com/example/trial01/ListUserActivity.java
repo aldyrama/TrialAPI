@@ -15,7 +15,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.trial01.adapter.RecyclerViewUserAdapter;
 import com.example.trial01.apihelper.BaseApiService;
@@ -31,12 +30,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-public class ListUser extends AppCompatActivity {
+public class ListUserActivity extends AppCompatActivity {
 
     private List<User> mUser;
     private RecyclerViewUserAdapter mAdapter;
@@ -46,7 +40,6 @@ public class ListUser extends AppCompatActivity {
     BaseApiService mApiService;
     Context mContext;
     private DatabaseReference mDatabaseRef;
-    private ValueEventListener mDBListener;
     private SharedPrefManager sharedPrefManager;
 
 
@@ -55,7 +48,6 @@ public class ListUser extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_user);
 
-//        ButterKnife.bind(this);
         sharedPrefManager = new SharedPrefManager(this);
         mContext = this;
         mApiService = UtilsApi.getAPIService();
@@ -78,7 +70,7 @@ public class ListUser extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.logout, menu);
+        inflater.inflate(R.menu.menu_item_list_user, menu);
         return true;
 
     }
@@ -86,9 +78,12 @@ public class ListUser extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId()==R.id.logout) {
             sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_SUDAH_LOGIN, false);
-            startActivity(new Intent(ListUser.this, Login.class)
+            startActivity(new Intent(ListUserActivity.this, LoginActivity.class)
                     .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
             finish();
+        }
+        if (item.getItemId()==R.id.product) {
+            startActivity(new Intent(ListUserActivity.this, ListProductActivity.class));
         }
 
         return true;

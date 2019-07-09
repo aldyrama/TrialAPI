@@ -5,7 +5,6 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -14,16 +13,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".SignUp"
+
+        <activity android:name=".SignUpActivity"
             android:label="SignUp">
         </activity>
         <activity
-            android:name=".ListUser"
-            android:label="List User">
-
-        </activity>
-        <activity
-            android:name=".Login"
+            android:name=".LoginActivity"
             android:label="Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,7 +27,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity">
-
+        </activity>
+        <activity
+            android:name=".ListUserActivity"
+            android:label="List User">
+        </activity>
+        <activity android:name=".ListProductActivity"
+            android:label="List Product">
         </activity>
     </application>
 

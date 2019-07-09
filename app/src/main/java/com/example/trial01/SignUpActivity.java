@@ -24,7 +24,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SignUp extends AppCompatActivity {
+public class SignUpActivity extends AppCompatActivity {
 
     private EditText mName, mUsername, mPassword;
     private Button mRegister;
@@ -89,7 +89,7 @@ public class SignUp extends AppCompatActivity {
                                 JSONObject jsonRESULTS = new JSONObject(response.body().string());
                                 if (jsonRESULTS.getString("message").equals("Success")){
                                     Toast.makeText(mContext, "BERHASIL REGISTRASI", Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(mContext, Login.class));
+                                    startActivity(new Intent(mContext, LoginActivity.class));
                                 } else {
                                     String error_message = jsonRESULTS.getString("error_msg");
                                     Toast.makeText(mContext, error_message, Toast.LENGTH_SHORT).show();
@@ -121,7 +121,7 @@ public class SignUp extends AppCompatActivity {
 
                 break;
             case R.id.txt_login :
-                startActivity(new Intent(SignUp.this, Login.class));
+                startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
                 break;
         }
     }
