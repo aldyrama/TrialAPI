@@ -116,7 +116,7 @@ public class LoginActivity extends AppCompatActivity implements ConnectivityRece
                                     sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_SUDAH_LOGIN, true);
 //                                    Log.d("nama", "onResponse" + nama);
                                     addUser();
-                                    startActivity(new Intent(mContext, MainActivity.class)
+                                    startActivity(new Intent(mContext, ListUserActivity.class)
                                             .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
                                     finish();
                                 } else {
