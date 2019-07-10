@@ -92,26 +92,6 @@ public class ListProductActivity extends AppCompatActivity implements Connectivi
         if (item.getItemId()==R.id.user) {
             startActivity(new Intent(ListProductActivity.this, ListUserActivity.class));
         }
-        if (item.getItemId() == R.id.page1){
-            loading.show();
-            checkConnection();
-            getProduct();
-            Log.d("API", "Data" + page);
-
-        }
-        if (item.getItemId() == R.id.page2){
-            loading.show();
-            checkConnection();
-            getProduct1();
-            Log.d("API", "Data" + page);
-
-        }
-        if (item.getItemId() == R.id.page3){
-            loading.show();
-            checkConnection();
-            getProduct2();
-        }
-
 
         return true;
     }
@@ -149,48 +129,39 @@ public class ListProductActivity extends AppCompatActivity implements Connectivi
                 mAdapter.notifyDataSetChanged();
                 loading.dismiss();
                 checkData();
+                mApiService.products(2).enqueue(new Callback<Data>() {
+                    @Override
+                    public void onResponse(Call<Data> call, Response<Data> response) {
+                        Log.d("API", "Data" + response);
+                        mProduct.addAll(response.body().getData());
+                        mAdapter.notifyDataSetChanged();
+                        loading.dismiss();
+                        checkData();
+
+                        mApiService.products(3).enqueue(new Callback<Data>() {
+                            @Override
+                            public void onResponse(Call<Data> call, Response<Data> response) {
+                                Log.d("API", "Data" + response);
+                                mProduct.addAll(response.body().getData());
+                                mAdapter.notifyDataSetChanged();
+                                loading.dismiss();
+                                checkData();
+                            }
+
+                            @Override
+                            public void onFailure(Call<Data> call, Throwable t) {
+
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onFailure(Call<Data> call, Throwable t) {
+
+                    }
+                });
             }
-
-            @Override
-            public void onFailure(Call<Data> call, Throwable t) {
-
-            }
-        });
-    }
-
-    public void getProduct1() {
-
-        mApiService.products(2).enqueue(new Callback<Data>() {
-            @Override
-            public void onResponse(Call<Data> call, Response<Data> response) {
-                Log.d("API", "Data" + response);
-                mProduct.clear();
-                mProduct.addAll(response.body().getData());
-                mAdapter.notifyDataSetChanged();
-                loading.dismiss();
-                checkData();
-            }
-
-            @Override
-            public void onFailure(Call<Data> call, Throwable t) {
-
-            }
-        });
-    }
-
-    public void getProduct2() {
-
-        mApiService.products(3).enqueue(new Callback<Data>() {
-            @Override
-            public void onResponse(Call<Data> call, Response<Data> response) {
-                Log.d("API", "Data" + response);
-                mProduct.clear();
-                mProduct.addAll(response.body().getData());
-                mAdapter.notifyDataSetChanged();
-                loading.dismiss();
-                checkData();
-            }
-
+            
             @Override
             public void onFailure(Call<Data> call, Throwable t) {
 
