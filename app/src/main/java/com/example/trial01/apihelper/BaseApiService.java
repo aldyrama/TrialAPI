@@ -1,11 +1,15 @@
 package com.example.trial01.apihelper;
 
+import com.example.trial01.model.Data;
+import com.example.trial01.model.Product;
+
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface BaseApiService {
 
@@ -20,15 +24,13 @@ public interface BaseApiService {
                                        @Field("username") String email,
                                        @Field("password") String password);
 
-    @FormUrlEncoded
+
     @GET("profile")
     Call<ResponseBody> profile(@Field("id") int id,
                                @Field("first_name") String nama);
 
-    @FormUrlEncoded
+
     @GET("products")
-    Call<ResponseBody> products(@Field("id") int id,
-                                @Field("name") String name,
-                                @Field("image") String image);
+    Call<Data> products(@Query("page") int page);
 
 }

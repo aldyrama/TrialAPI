@@ -39,7 +39,7 @@ public class RecyclerViewUserAdapter extends RecyclerView.Adapter<RecyclerViewUs
 
         holder.mId.setText(currentUser.getId());
         holder.mNama.setText(currentUser.getUsername());
-//        Picasso.with(mContext)
+//        Picasso.with
 //                .load(currentUser.getImg())
 //                .placeholder(R.drawable.ic_user)
 //                .fit()

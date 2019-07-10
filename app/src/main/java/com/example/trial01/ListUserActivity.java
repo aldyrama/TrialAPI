@@ -3,7 +3,9 @@ package com.example.trial01;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -19,6 +21,7 @@ import android.widget.TextView;
 import com.example.trial01.adapter.RecyclerViewUserAdapter;
 import com.example.trial01.apihelper.BaseApiService;
 import com.example.trial01.apihelper.UtilsApi;
+import com.example.trial01.connection.ConnectivityReceiver;
 import com.example.trial01.model.SharedPrefManager;
 import com.example.trial01.model.User;
 import com.google.firebase.database.DataSnapshot;
@@ -30,7 +33,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListUserActivity extends AppCompatActivity {
+public class ListUserActivity extends AppCompatActivity implements ConnectivityReceiver.ConnectivityReceiverListener {
 
     private List<User> mUser;
     private RecyclerViewUserAdapter mAdapter;
@@ -61,8 +64,7 @@ public class ListUserActivity extends AppCompatActivity {
 
         mRecyclerView.setAdapter(mAdapter);
         loading = ProgressDialog.show(mContext, null, "Harap Tunggu...", true, false);
-
-
+        checkConnection();
         getUser();
 
     }
@@ -151,5 +153,39 @@ public class ListUserActivity extends AppCompatActivity {
         else {
             mEmpty.setVisibility(View.VISIBLE);
         }
+    }
+
+    private void checkConnection() {
+        boolean isConnected = ConnectivityReceiver.isConnected(this);
+        showSnack(isConnected);
+    }
+
+    private void showSnack(boolean isConnected) {
+        String message = null;
+        int color = 0;
+        if (!isConnected) {
+            loading.dismiss();
+            message = "Maaf! Tidak terhubung ke internet";
+            color = Color.RED;
+
+            Snackbar snackbar = Snackbar.make(findViewById(R.id.rl), message, Snackbar.LENGTH_LONG);
+
+            View sbView = snackbar.getView();
+            TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+            textView.setTextColor(color);
+            snackbar.show();
+        }
+
+    }
+
+    @Override
+    public void onNetworkConnectionChanged(boolean isConnected) {
+
+        showSnack(isConnected);
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
     }
 }

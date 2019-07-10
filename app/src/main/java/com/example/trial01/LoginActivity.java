@@ -3,17 +3,21 @@ package com.example.trial01;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.trial01.apihelper.BaseApiService;
 import com.example.trial01.apihelper.UtilsApi;
+import com.example.trial01.connection.ConnectivityReceiver;
 import com.example.trial01.model.SharedPrefManager;
 import com.example.trial01.model.User;
 import com.google.firebase.database.DatabaseReference;
@@ -29,7 +33,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements ConnectivityReceiver.ConnectivityReceiverListener {
 
     private TextInputEditText mUsername, mPassword;
     private AppCompatButton mLogin;
@@ -64,6 +68,7 @@ public class LoginActivity extends AppCompatActivity {
         mLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                checkConnection();
                 loading = ProgressDialog.show(mContext, null, "Harap Tunggu...", true, false);
                 String username = mUsername.getText().toString();
                 String password = mPassword.getText().toString();
@@ -123,8 +128,9 @@ public class LoginActivity extends AppCompatActivity {
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-                        } else {
-                            loading.dismiss();
+                        }
+                        else {
+
                         }
                     }
 
@@ -144,5 +150,41 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(new Intent(LoginActivity.this, SignUpActivity.class));
                 break;
         }
+    }
+
+    private void checkConnection() {
+        boolean isConnected = ConnectivityReceiver.isConnected(this);
+        showSnack(isConnected);
+    }
+
+    private void showSnack(boolean isConnected) {
+        String message = null;
+        int color = 0;
+        if (!isConnected) {
+//            loading.dismiss();
+            message = "Maaf! Tidak terhubung ke internet";
+            color = Color.RED;
+
+            Snackbar snackbar = Snackbar.make(findViewById(R.id.scrool), message, Snackbar.LENGTH_LONG);
+
+            View sbView = snackbar.getView();
+            TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+            textView.setTextColor(color);
+            snackbar.show();
+
+        }
+
+    }
+
+    @Override
+    public void onNetworkConnectionChanged(boolean isConnected) {
+
+        showSnack(isConnected);
+
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
     }
 }

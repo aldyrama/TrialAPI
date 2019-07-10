@@ -1,16 +1,21 @@
 package com.example.trial01.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Product {
 
-    private int id;
+    @SerializedName("id")
+    private String id;
+    @SerializedName("name")
     private String name;
+    @SerializedName("image")
     private String image;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
