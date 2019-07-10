@@ -92,6 +92,9 @@ public class ListProductActivity extends AppCompatActivity implements Connectivi
         if (item.getItemId()==R.id.user) {
             startActivity(new Intent(ListProductActivity.this, ListUserActivity.class));
         }
+        if (item.getItemId() == R.id.navigation_menu){
+            startActivity(new Intent(ListProductActivity.this, MainActivity.class));
+        }
 
         return true;
     }
@@ -161,7 +164,7 @@ public class ListProductActivity extends AppCompatActivity implements Connectivi
                     }
                 });
             }
-            
+
             @Override
             public void onFailure(Call<Data> call, Throwable t) {
 

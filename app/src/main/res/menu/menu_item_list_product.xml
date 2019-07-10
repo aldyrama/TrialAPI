@@ -8,6 +8,11 @@
         app:showAsAction="never"/>
 
     <item
+        android:id="@+id/navigation_menu"
+        android:title="Bottom navigation"
+        app:showAsAction="never"/>
+
+    <item
         android:id="@+id/user"
         android:title=""
         android:background="?attr/selectableItemBackgroundBorderless"
