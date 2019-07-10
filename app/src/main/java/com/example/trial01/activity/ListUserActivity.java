@@ -1,4 +1,4 @@
-package com.example.trial01;
+package com.example.trial01.activity;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.trial01.R;
 import com.example.trial01.adapter.RecyclerViewUserAdapter;
 import com.example.trial01.apihelper.BaseApiService;
 import com.example.trial01.apihelper.UtilsApi;
@@ -87,26 +88,12 @@ public class ListUserActivity extends AppCompatActivity implements ConnectivityR
         if (item.getItemId()==R.id.product) {
             startActivity(new Intent(ListUserActivity.this, ListProductActivity.class));
         }
-
+        if (item.getItemId() == R.id.navigation_menu){
+            startActivity(new Intent(ListUserActivity.this, MainActivity.class));
+        }
         return true;
     }
 
-//    private void getUser() {
-//        loading = ProgressDialog.show(this, null, "Harap Tunggu...", true, false);
-//        mApiService.profile(Integer.parseInt("id"),"nama").enqueue(new Callback<ResponseBody>() {
-//
-//            @Override
-//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ResponseBody> call, Throwable t) {
-//                loading.dismiss();
-//                Toast.makeText(mContext, "Koneksi Internet Bermasalah", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//    }
     public void getUser(){
         mDatabaseRef = FirebaseDatabase.getInstance().getReference().child("Users");
         mDatabaseRef.addValueEventListener(new ValueEventListener() {

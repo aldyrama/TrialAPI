@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">Trial01</string>
+
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_inbox">Inbox</string>
+    <string name="title_profile">Profile</string>
+
+    <string name="fragment_dashboard">Dashboard</string>
+    <string name="fragment_home">Home</string>
+    <string name="fragment_inbox">Inbox</string>
+    <string name="fragment_profile">Profile</string>
+    <string name="fragment_product">Product</string>
+    <string name="fragment_address">Address</string>
+    <string name="fragment_detail_product">Detail product</string>
+    <string name="fragment_estimasi_product">Estimasi product</string>
+    <string name="fragment_status_product">Status product</string>
 </resources>

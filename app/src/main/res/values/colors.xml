@@ -9,5 +9,6 @@
     <color name="blackk">#000</color>
     <color name="colorWhite">#fff</color>
     <color name="light_grey">#DBDBDB</color>
-
+    <color name="colorNavIcon">#dae9f6</color>
+    <color name="colorNavText">#01294b</color>
 </resources>

@@ -1,4 +1,4 @@
-package com.example.trial01;
+package com.example.trial01.activity;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -11,10 +11,10 @@ import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
 import android.util.Log;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.trial01.R;
 import com.example.trial01.apihelper.BaseApiService;
 import com.example.trial01.apihelper.UtilsApi;
 import com.example.trial01.connection.ConnectivityReceiver;
@@ -116,7 +116,7 @@ public class LoginActivity extends AppCompatActivity implements ConnectivityRece
                                     sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_SUDAH_LOGIN, true);
 //                                    Log.d("nama", "onResponse" + nama);
                                     addUser();
-                                    startActivity(new Intent(mContext, ListUserActivity.class)
+                                    startActivity(new Intent(mContext, MainActivity.class)
                                             .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
                                     finish();
                                 } else {

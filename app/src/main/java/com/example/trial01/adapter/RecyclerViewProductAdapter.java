@@ -8,10 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.trial01.ListProductActivity;
+import com.example.trial01.activity.ListProductActivity;
 import com.example.trial01.R;
 import com.example.trial01.model.Product;
-import com.google.firebase.database.core.Context;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
