@@ -15,11 +15,10 @@ import java.util.Scanner;
 
 public class TrianglePatternActivity extends AppCompatActivity {
 
-    private TextView mPatternResults, mPatternResults1;
+    private TextView mPatternResults, mPatternResults1, mPatternResults2;
     private Button mButtonResults;
     private TextInputEditText mInput;
     String patternResult = "";
-    String patternResult1 = "";
     int value, i, j, k;
 
     @Override
@@ -31,6 +30,7 @@ public class TrianglePatternActivity extends AppCompatActivity {
         mButtonResults = findViewById(R.id.btn_pattern);
         mPatternResults = findViewById(R.id.txt_pattern);
         mPatternResults1 = findViewById(R.id.txt_pattern2);
+        mPatternResults2 = findViewById(R.id.txt_pattern3);
         pattern();
 
     }
@@ -39,8 +39,8 @@ public class TrianglePatternActivity extends AppCompatActivity {
         mButtonResults.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Patter 1
                 patternResult = "";
-                patternResult1 = "";
                 if (mInput.getText().toString().isEmpty()) {
                     mInput.setError("input required");
                 } else {
@@ -61,20 +61,38 @@ public class TrianglePatternActivity extends AppCompatActivity {
                     mPatternResults1.setText(patternResult);
                     Log.d("result", "input" + patternResult);
 
+                    //Pattern 2
+                    patternResult = "";
                     for (i = 0; i <= value; i++) {
                         for (j = 0; j < i; j++) {
                             System.out.print("*");
-                            patternResult1 += "*";
+                            patternResult += "*";
                         }
 
                         System.out.println();
-                        patternResult1 += "\n";
+                        patternResult += "\n";
 
                     }
-                    mPatternResults.setText(patternResult1);
+                    mPatternResults.setText(patternResult);
 
+                    //Pattern 3
+                    patternResult = "";
+                    for (i=1; i<=value; i++){
+                        for (j=i; j <= value - 1; j++){
+                            System.out.println(" ");
+                            patternResult += " ";
+                    }
+                    for (k = 1; k <= (2* i) - 1; k++) {
+                        System.out.print("*");
+                        patternResult += "*";
+                    }
+                        System.out.println();
+                        patternResult += "\n";
+                    }
+                    mPatternResults2.setText(patternResult);
 
                 }
+
             }
 
         });

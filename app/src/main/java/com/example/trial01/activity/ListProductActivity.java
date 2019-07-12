@@ -66,7 +66,6 @@ public class ListProductActivity extends AppCompatActivity implements Connectivi
         mApiService = UtilsApi.getAPIService();
         mEmpty = findViewById(R.id.empty);
         mEmpty.setVisibility(View.GONE);
-//        loading = ProgressDialog.show(mContext, null, "Harap Tunggu...", true, false);
         mApiService = UtilsApi.getAPIService();
         checkConnection();
         componentView();
@@ -77,10 +76,9 @@ public class ListProductActivity extends AppCompatActivity implements Connectivi
             mRecyclerView = findViewById(R.id.recycler_view);
             mRecyclerView.setHasFixedSize(true);
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
-            mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+            mRecyclerView.setLayoutManager(linearLayoutManager);
             mRecyclerView.setItemAnimator(new DefaultItemAnimator());
             mProduct = new ArrayList<>();
-//            mAdapter = new RecyclerViewProductAdapter(this, mProduct);
             mAdapter = new RecyclerViewProductAdapter(mContext);
             mRecyclerView.setAdapter(mAdapter);
             mRecyclerView.addOnScrollListener(new PaginationScrollListener(linearLayoutManager) {
@@ -95,11 +93,6 @@ public class ListProductActivity extends AppCompatActivity implements Connectivi
                             }
                         }, 200);
                     }
-                }
-
-                @Override
-                public int getTotalPageCount() {
-                    return 0;
                 }
 
                 @Override
@@ -231,7 +224,7 @@ public class ListProductActivity extends AppCompatActivity implements Connectivi
             Snackbar snackbar = Snackbar.make(findViewById(R.id.constraint), message, Snackbar.LENGTH_LONG);
 
             View sbView = snackbar.getView();
-            TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+            TextView textView = sbView.findViewById(android.support.design.R.id.snackbar_text);
             textView.setTextColor(color);
             snackbar.show();
         }
