@@ -1,5 +1,6 @@
 package com.example.trial01.adapter;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,16 +14,23 @@ import com.example.trial01.R;
 import com.example.trial01.model.Product;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecyclerViewProductAdapter extends RecyclerView.Adapter<RecyclerViewProductAdapter.MyViewHolder>{
 
-    private ListProductActivity mContext;
+//    private ListProductActivity mContext;
     private List<Product> mProduct;
+    Context mContext;
 
-    public RecyclerViewProductAdapter(ListProductActivity listProductActivity, List<Product> mProduct) {
-        this.mContext = listProductActivity;
-        this.mProduct = mProduct;
+//    public RecyclerViewProductAdapter(ListProductActivity listProductActivity, List<Product> mProduct) {
+//        this.mContext = listProductActivity;
+//        this.mProduct = mProduct;
+//    }
+
+    public RecyclerViewProductAdapter(Context context) {
+        mProduct = new ArrayList<>();
+        mContext = context;
     }
 
     @NonNull
@@ -66,5 +74,15 @@ public class RecyclerViewProductAdapter extends RecyclerView.Adapter<RecyclerVie
             mName = itemView.findViewById(R.id.txt_name);
             mImage = itemView.findViewById(R.id.img_product);
         }
+    }
+
+    public void setItems(List<Product> items){
+        mProduct = items;
+        notifyDataSetChanged();
+    }
+
+    public void addItems(List<Product> items){
+        mProduct.addAll(items);
+        notifyDataSetChanged();
     }
 }

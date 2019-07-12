@@ -17,4 +17,9 @@
         android:title="Bottom navigation"
         app:showAsAction="never"/>
 
+    <item
+        android:id="@+id/pattern"
+        android:title="Triangle Pattern"
+        app:showAsAction="never"/>
+
 </menu>

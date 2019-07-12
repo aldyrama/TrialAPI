@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -16,10 +17,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.trial01.R;
+import com.example.trial01.utils.PaginationScrollListener;
 import com.example.trial01.adapter.RecyclerViewProductAdapter;
 import com.example.trial01.apihelper.BaseApiService;
 import com.example.trial01.apihelper.UtilsApi;
@@ -37,16 +40,20 @@ import retrofit2.Response;
 
 public class ListProductActivity extends AppCompatActivity implements ConnectivityReceiver.ConnectivityReceiverListener {
 
+    String TAG = MainActivity.class.getSimpleName();
     private SharedPrefManager sharedPrefManager;
-    private Menu menu;
     private List<Product> mProduct;
     private RecyclerViewProductAdapter mAdapter;
     private TextView mEmpty;
     private RecyclerView mRecyclerView;
     private ProgressDialog loading;
-    private int page;
+    private ProgressBar mProgressBar;
     private SwipeRefreshLayout mSwipLayout;
     private RelativeLayout mRelatifLayout;
+    private boolean isLoading = false;
+    private boolean isLastPage = false;
+    private int page = 1;
+    SwipeRefreshLayout swipeRefreshLayout;
     Context mContext;
     BaseApiService mApiService;
 
@@ -56,22 +63,61 @@ public class ListProductActivity extends AppCompatActivity implements Connectivi
         setContentView(R.layout.activity_list_product);
 
         sharedPrefManager = new SharedPrefManager(this);
-        mContext = this;
         mApiService = UtilsApi.getAPIService();
         mEmpty = findViewById(R.id.empty);
-        mRecyclerView = findViewById(R.id.recycler_product);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        mProduct = new ArrayList<>();
-        mAdapter = new RecyclerViewProductAdapter(this, mProduct);
-        mRecyclerView.setAdapter(mAdapter);
-        loading = ProgressDialog.show(mContext, null, "Harap Tunggu...", true, false);
+        mEmpty.setVisibility(View.GONE);
+//        loading = ProgressDialog.show(mContext, null, "Harap Tunggu...", true, false);
         mApiService = UtilsApi.getAPIService();
         checkConnection();
         componentView();
-        getProduct();
 
+        try {
+
+            mContext = this;
+            mRecyclerView = findViewById(R.id.recycler_view);
+            mRecyclerView.setHasFixedSize(true);
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+            mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+            mProduct = new ArrayList<>();
+//            mAdapter = new RecyclerViewProductAdapter(this, mProduct);
+            mAdapter = new RecyclerViewProductAdapter(mContext);
+            mRecyclerView.setAdapter(mAdapter);
+            mRecyclerView.addOnScrollListener(new PaginationScrollListener(linearLayoutManager) {
+                @Override
+                protected void loadMoreItems() {
+                    isLoading = true;
+                    if (!isLastPage) {
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                loadDataProduct(page);
+                            }
+                        }, 200);
+                    }
+                }
+
+                @Override
+                public int getTotalPageCount() {
+                    return 0;
+                }
+
+                @Override
+                public boolean isLastPage() {
+                    return isLastPage;
+                }
+
+                @Override
+                public boolean isLoading() {
+                    return isLoading;
+                }
+            });
+
+            loadDataProduct(page);
+
+        } catch (Exception ex) {
+            Log.e(TAG, ex.getMessage());
+        }
     }
 
     @Override
@@ -95,13 +141,17 @@ public class ListProductActivity extends AppCompatActivity implements Connectivi
         if (item.getItemId() == R.id.navigation_menu){
             startActivity(new Intent(ListProductActivity.this, MainActivity.class));
         }
+        if (item.getItemId() == R.id.pattern){
+            startActivity(new Intent(ListProductActivity.this, TrianglePatternActivity.class));
+        }
 
         return true;
     }
 
     private void componentView() {
         mRelatifLayout = findViewById(R.id.rl);
-//        mSwipLayout = findViewById(R.id.container);
+        mProgressBar = findViewById(R.id.progress_bar);
+//        swipeRefreshLayout = findViewById(R.id.main_swiperefresh);
 
 //        mSwipLayout.setColorSchemeResources(R.color.colorPrimary,R.color.colorAccent);
 //
@@ -121,55 +171,37 @@ public class ListProductActivity extends AppCompatActivity implements Connectivi
 //        });
     }
 
-    public void getProduct() {
-
-        mApiService.products(1).enqueue(new Callback<Data>() {
+    private void loadDataProduct(int page) {
+        mProgressBar.setVisibility(View.VISIBLE);
+        Call<Data> call = mApiService.products(page);
+        call.enqueue(new Callback<Data>() {
             @Override
             public void onResponse(Call<Data> call, Response<Data> response) {
-                Log.d("API", "Data" + response);
-                mProduct.clear();
-                mProduct.addAll(response.body().getData());
-                mAdapter.notifyDataSetChanged();
-                loading.dismiss();
+                Data serverResponse = response.body();
+                resultAction(serverResponse);
+                Log.d("respons", "result" + response);
+
                 checkData();
-                mApiService.products(2).enqueue(new Callback<Data>() {
-                    @Override
-                    public void onResponse(Call<Data> call, Response<Data> response) {
-                        Log.d("API", "Data" + response);
-                        mProduct.addAll(response.body().getData());
-                        mAdapter.notifyDataSetChanged();
-                        loading.dismiss();
-                        checkData();
-
-                        mApiService.products(3).enqueue(new Callback<Data>() {
-                            @Override
-                            public void onResponse(Call<Data> call, Response<Data> response) {
-                                Log.d("API", "Data" + response);
-                                mProduct.addAll(response.body().getData());
-                                mAdapter.notifyDataSetChanged();
-                                loading.dismiss();
-                                checkData();
-                            }
-
-                            @Override
-                            public void onFailure(Call<Data> call, Throwable t) {
-
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onFailure(Call<Data> call, Throwable t) {
-
-                    }
-                });
             }
-
             @Override
             public void onFailure(Call<Data> call, Throwable t) {
+                Log.e("failure", t.toString());
 
             }
         });
+    }
+
+    private void resultAction(Data data) {
+        mProgressBar.setVisibility(View.INVISIBLE);
+        isLoading = false;
+        if (data != null) {
+            mAdapter.addItems(data.getData());
+            if (data.getPage() == data.getTotalPages()) {
+                isLastPage = true;
+            } else {
+                page = data.getPage() + 1;
+            }
+        }
     }
 
     public void checkData(){
@@ -192,11 +224,11 @@ public class ListProductActivity extends AppCompatActivity implements Connectivi
         String message = null;
         int color = 0;
         if (!isConnected) {
-            loading.dismiss();
+//            mProgressBar.setVisibility(View.GONE);
             message = "Maaf! Tidak terhubung ke internet";
             color = Color.RED;
 
-            Snackbar snackbar = Snackbar.make(findViewById(R.id.rl), message, Snackbar.LENGTH_LONG);
+            Snackbar snackbar = Snackbar.make(findViewById(R.id.constraint), message, Snackbar.LENGTH_LONG);
 
             View sbView = snackbar.getView();
             TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);

@@ -15,4 +15,13 @@
     <string name="fragment_detail_product">Detail product</string>
     <string name="fragment_estimasi_product">Estimasi product</string>
     <string name="fragment_status_product">Status product</string>
+    <string name="error_msg">Maaf! Tidak dapat mengambil produk</string>
+    <string name="btn_retry">Retry</string>
+
+    <string-array name="pattern">
+        <item>Pattern 1</item>
+        <item>Pattern 2</item>
+        <item>Pattern 3</item>
+    </string-array>
+
 </resources>

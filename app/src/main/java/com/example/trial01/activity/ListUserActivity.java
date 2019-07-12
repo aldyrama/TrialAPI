@@ -91,6 +91,9 @@ public class ListUserActivity extends AppCompatActivity implements ConnectivityR
         if (item.getItemId() == R.id.navigation_menu){
             startActivity(new Intent(ListUserActivity.this, MainActivity.class));
         }
+        if (item.getItemId() == R.id.pattern){
+            startActivity(new Intent(ListUserActivity.this, TrianglePatternActivity.class));
+        }
         return true;
     }
 
